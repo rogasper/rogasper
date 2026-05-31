@@ -8,7 +8,7 @@ Hi, I'm Royan Gagas Pradana ✋
 </p> -->
 
 
-👨‍💻 Frontend Developer with React. Currently goals learning Golang & React Native</br>
+👨‍💻 Fullstack Developer a round 3 years. I looking for the job for software engineer</br>
 📧 How to reach me: <a href="mailto:royangagas@gmail.com">Click here</a></br>
 <hr>
 
