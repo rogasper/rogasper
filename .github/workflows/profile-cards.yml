@@ -1,0 +1,63 @@
+name: Update profile cards
+
+# Renders the GitHub stats, top-languages, and streak cards into profile/*.svg and
+# commits them, so the README serves its own images instead of depending on the
+# shared public instances (github-readme-stats.vercel.app and friends return 402/503
+# whenever they run out of quota, which shows up as broken images on the profile).
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  push:
+    paths:
+      - ".github/workflows/profile-cards.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-cards
+  cancel-in-progress: false
+
+jobs:
+  cards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Generate stats card
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: stats
+          options: "username=rogasper&show_icons=true&include_all_commits=true&count_private=true&hide_border=true&bg_color=192330&title_color=719cd6&text_color=cdcecf&icon_color=63cdcf&border_color=29394f"
+          path: profile/stats.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Fail rather than overwrite a good card with a "Something went wrong" one
+          fail_on_error: true
+
+      - name: Generate top languages card
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: top-langs
+          # exclude_repo drops university coursework and forked repos so the card
+          # reflects the professional stack. Trim or extend the list freely.
+          options: "username=rogasper&layout=compact&langs_count=8&hide_border=true&bg_color=192330&title_color=719cd6&text_color=cdcecf&border_color=29394f&custom_title=Most%20Used%20Languages&exclude_repo=web-programming-exercise,utswebframework,webframework,labor-ptik,crud-livewire,flutter-movie-api,uas-microservice-java,uts-employersalary,DataMahasiswa,TebakAngkaJava,BantuBejo-PBO,mahasiswasharingcenter,foundtravel-belajar,CoffeLibraryWeb,TorrentCourseListScrape,pretest-react-casa,training-casa-react,casaRNTraining,git-industri,rechatfirebaseapp,rogasper-urlShortener,nexquiz,landing-page,WolfCut,ai-interview-platform,ai-job-search-opencode,rsketchdraw,react-video-editor,letbereal-ui,DrugAI"
+          path: profile/top-langs.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fail_on_error: true
+
+      - name: Generate streak card
+        # No moving v1 tag exists upstream, so pin the exact release.
+        uses: DenverCoder1/github-readme-streak-stats@v1.7.0
+        with:
+          options: "user=rogasper&hide_border=true&disable_animations=true&date_format=j%20M%20Y&background=192330&border=29394f&stroke=719cd6&ring=719cd6&fire=f4a261&currStreakNum=cdcecf&sideNums=cdcecf&currStreakLabel=63cdcf&sideLabels=63cdcf&dates=738091"
+          path: profile/streak.svg
+
+      - name: Commit cards
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add profile/*.svg
+          git diff --staged --quiet || git commit -m "chore: refresh profile cards"
+          git push
