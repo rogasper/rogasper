@@ -59,5 +59,20 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add profile/*.svg
-          git diff --staged --quiet || git commit -m "chore: refresh profile cards"
-          git push
+          if git diff --staged --quiet; then
+            echo "Cards unchanged, nothing to commit."
+            exit 0
+          fi
+          git commit -m "chore: refresh profile cards"
+          # A scheduled run and a manual dispatch can overlap, so the remote can
+          # move between checkout and push. Rebase onto it and retry.
+          for attempt in 1 2 3; do
+            if git pull --rebase --autostash --quiet && git push; then
+              echo "Pushed on attempt $attempt."
+              exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            sleep 5
+          done
+          echo "Could not push after 3 attempts." >&2
+          exit 1
