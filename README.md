@@ -2,7 +2,7 @@
 
 <img src="https://komarev.com/ghpvc/?username=rogasper&label=Profile%20Views&color=0e75b6&style=for-the-badge" align="right" alt="Profile views" />
 
-<h3>Royan Gagas Pradana</h3>
+<h3>Royan Gagas</h3>
 
 <p><b>Software Engineer</b> &nbsp;·&nbsp; AI tooling &nbsp;·&nbsp; API &amp; system design<br/>
 <sub>3+ years shipping products, the contracts behind them, and the tooling that removes the busywork &nbsp;·&nbsp; Indonesia (GMT+7)</sub></p>
