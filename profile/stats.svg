@@ -9,7 +9,7 @@
         aria-labelledby="descId"
       >
         <title id="titleId">Royan Gagas&#39; GitHub Stats, Rank: B+</title>
-        <desc id="descId">Total Stars Earned: 136, Total Commits  : 1187, Total PRs: 25, Total Issues: 28, Contributed to (last year): 1</desc>
+        <desc id="descId">Total Stars Earned: 136, Total Commits  : 1192, Total PRs: 26, Total Issues: 29, Contributed to (last year): 1</desc>
         <style>
           .header {
             font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
@@ -73,7 +73,7 @@
         stroke-dashoffset: 251.32741228718345;
       }
       to {
-        stroke-dashoffset: 120.91380010477287;
+        stroke-dashoffset: 113.84064056436537;
       }
     }
   
@@ -199,7 +199,7 @@
         x="224.01"
         y="12.5"
         data-testid="prs"
-      >25</text>
+      >26</text>
     </g>
   </g><g transform="translate(0, 75)">
     <g class="stagger" style="animation-delay: 900ms" transform="translate(25, 0)">
@@ -214,7 +214,7 @@
         x="224.01"
         y="12.5"
         data-testid="issues"
-      >28</text>
+      >29</text>
     </g>
   </g><g transform="translate(0, 100)">
     <g class="stagger" style="animation-delay: 1050ms" transform="translate(25, 0)">
